@@ -1,0 +1,12 @@
+
+common_packages:
+  - vim
+  - git
+  - curl
+  - httpd  
+
+user_name: "JohnHash"
+user_comment: "Common user for all hosts"
+user_shell: "/bin/bash"
+user_home: "/home/newuser"
+

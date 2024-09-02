@@ -1,0 +1,33 @@
+---
+# tasks file for web_server
+- name: Install common packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ common_packages }}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Ensure Apache (httpd) is started and enabled
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  when: "'httpd' in common_packages"
+
+- name: Create a user
+  user:
+    name: "{{ user_name }}"
+    comment: "{{ user_comment }}"
+    shell: "{{ user_shell }}"
+    home: "{{ user_home }}"
+    state: present
+
+- name: Create custom index.html
+  copy:
+    src: ./index.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart httpd
+

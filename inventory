@@ -1,0 +1,10 @@
+[grp1]
+rhel1
+
+[grp2]
+rhel2
+
+[all:children]
+grp1
+grp2
+
